@@ -1,0 +1,40 @@
+import processing.video.*;
+//this code is for a pre-recorded video but when you run it only the audio plays
+ 
+Movie myMovie;
+ 
+int x = 0;
+int w = 0;
+int h = 0;
+ 
+void setup() {
+  size(1000, 1000);
+  myMovie = new Movie(this, "IMG_8829.MOV");
+  myMovie.loop();
+}
+
+
+
+ //another solution to error
+ void setup() {
+  ( myMovie = new Movie(this, "kat.mov") ).loop();
+  while (myMovie.height == 0) delay(2);
+}
+//
+
+
+
+void draw() {
+  if (myMovie.width < 1) {//one of the solutions to the error
+    return;
+  }
+  int w = myMovie.width;
+  int h = myMovie.height;
+  image(myMovie, w/2, 0, 1, h, x, 0, 1, h);
+ 
+  x = x + 1;
+}
+ 
+void movieEvent(Movie myMovie) {
+  myMovie.read();
+}
